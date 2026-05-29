@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherGuard // Tactical Interface</title>
+    <link rel="stylesheet" href="styles.css?v=3.0">
+</head>
+<body>
+
+    <div class="stars-overlay"></div>
+    <div class="stars-overlay"></div>
+<canvas id="cyberParticleCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background: #030306;"></canvas>
+
+    <main class="container">
+        <div class="nav-back" style="margin-bottom: 25px;">
+            <a href="index.html" class="nav-back-btn">← Overview</a>
+        </div>
+
+        <header class="hero-section" style="overflow: hidden; padding: 20px 0;">
+            <h1 class="slide-left" style="font-family: 'Orbitron', sans-serif; font-weight: 900; text-transform: uppercase; color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); margin-bottom: 15px;">
+                Cryptographic <span class="gradient-text">Analyzer</span>
+            </h1>
+            <p class="subtitle">Enter a credential string below to evaluate its architectural resilience against cyber threats.</p>
+        </header>
+
+        <section class="analyzer-card">
+            <div class="input-wrapper">
+                <input type="password" id="passwordInput" placeholder="ENTER STRING TO CRACK..." autocomplete="off">
+                <button type="button" id="toggleVisibility" class="visibility-btn" onclick="const input = document.getElementById('passwordInput'); if(input.type==='password'){input.type='text'; this.textContent='Hide';}else{input.type='password'; this.textContent='Show';}">Show</button>
+            </div>
+            
+            <div class="action-btn-container">
+                <button type="button" id="analyzeBtn" class="cta-btn" onclick="window.runAnalysis();">Bypass Firewall & Scan</button>
+            </div>
+        </section>
+
+        <section id="resultsPanel" class="results-panel hidden">
+            <div class="results-header">
+                <h2>Analysis Matrix Results</h2>
+                <div id="overallStatusBadge" class="status-badge">Processing...</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div id="card-strength" class="metric-card reveal-item">
+                    <span class="card-label">Strength Score</span>
+                    <div id="scoreValue" class="display-metric">--</div>
+                    <div class="progress-bar-container"><div id="scoreProgressBar" class="progress-bar"></div></div>
+                </div>
+
+                <div id="card-entropy" class="metric-card reveal-item">
+                    <span class="card-label">Information Entropy</span>
+                    <div id="entropyValue" class="display-metric">--</div>
+                    <p id="entropyDesc" class="sub-metric-text">Calculating bits...</p>
+                </div>
+
+                <div id="card-crack" class="metric-card reveal-item">
+                    <span class="card-label">Estimated Crack Time Matrix</span>
+                    <div id="crackTimeValue" class="display-metric-sm">--</div>
+                    
+                    <div class="timeline-container" style="margin-top: 20px; margin-bottom: 10px;">
+                        <div class="timeline-track" style="width: 100%; height: 4px; background: #10101a; border: 1px solid rgba(0, 240, 255, 0.1); position: relative;">
+                            <div id="timelineExpansionNeedle" style="width: 0%; height: 100%; background: #00f0ff; box-shadow: 0 0 10px #00f0ff; position: absolute; left: 0; top: 0; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 1.2s;"></div>
+                        </div>
+                        <div class="timeline-labels" style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem; font-family: 'Share Tech Mono', monospace; color: #506578;">
+                            <span id="tick-seconds">SECONDS</span>
+                            <span id="tick-years">YEARS</span>
+                            <span id="tick-centuries">CENTURIES</span>
+                        </div>
+                    </div>
+                    <p id="crackTimeDesc" class="sub-metric-text">Calculating time...</p>
+                </div>
+
+                <div id="card-breach" class="metric-card reveal-item">
+                    <div id="breachAlarmBanner" class="breach-alarm-banner" style="display: none; background: #ff0055; color: #ffffff; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding: 4px 10px; font-weight: bold; letter-spacing: 0.1em; margin-bottom: 12px; position: relative; overflow: hidden;">
+                        ⚠ CRITICAL THREAT: COMPROMISED STRING
+                        <div class="breach-scan-line"></div>
+                    </div>
+
+                    <span class="card-label">Breach Exposure Log</span>
+                    <div id="breachValue" class="display-metric-danger">--</div>
+                    <p id="breachDesc" class="sub-metric-text">Syncing registry hashes...</p>
+                </div>
+            </div> <div class="terminal-row-stack" style="display: flex; flex-direction: column; gap: 24px; width: 100%; margin-top: 24px;">
+                
+                <div id="card-patterns" class="metric-card text-output-card reveal-item" style="width: 100%; display: block; clear: both; margin-top: 0px;">
+                    <span class="card-label">Structural Quirks & Common Patterns</span>
+                    <ul id="patternList" class="pattern-list">
+                        <li>No signatures logged. Run analysis.</li>
+                    </ul>
+                </div>
+
+                <div id="card-suggestion" class="metric-card suggestion-card reveal-item" style="width: 100%; display: block; clear: both; margin-top: 0px;">
+                    <div class="suggestion-header">
+                        <h3>Recommended Secure Passphrase</h3>
+                    </div>
+                    <div class="suggestion-body">
+                        <div id="suggestedPassword" class="secure-string">••••••••••••••••</div>
+                        <button type="button" id="copyBtn" class="copy-btn" onclick="const str = document.getElementById('suggestedPassword').textContent; navigator.clipboard.writeText(str); this.textContent='Copied!'; setTimeout(()=>{this.textContent='Copy String'}, 1500);">Copy String</button>
+                    </div>
+                </div>
+
+            </div> </section>  
+    </main>
+<script src="bg-engine.js"></script>
+<script src="analyzer.js?v=777.0"></script>
+    
+</body>
+</html>

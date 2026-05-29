@@ -1,0 +1,671 @@
+/* ==========================================================================
+   1. CYBERPUNK DESIGN SYSTEM & CORE IMPORTS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #030305;
+    color: #00f0ff;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.05em;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* CRT Tactical Grid Scanlines */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.04));
+    z-index: 99999;
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   POSITION TO FIX: Update the stars-overlay block inside styles.css
+   ========================================================================== */
+.stars-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 240, 255, 0.01);
+    z-index: 9999;
+    animation: screenPulse 0.15s infinite;
+    
+    /* CRITICAL INTERACTIVE FIX: Tells the browser to let your mouse pass 
+       straight through this layer to hit the buttons underneath! */
+    pointer-events: none !important; 
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+    padding: 40px 24px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY & HEADER INTERFACES
+   ========================================================================== */
+.hero-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero-section h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    margin-bottom: 15px;
+}
+
+.gradient-text {
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+}
+
+.subtitle {
+    color: #a3b8cc;
+    font-size: 1.05rem;
+}
+
+.nav-back {
+    margin-bottom: 20px;
+}
+
+.text-link {
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   3. THE MAIN OPERATIONAL SCANNERS (FIXED INPUT & SHOW BUTTON)
+   ========================================================================== */
+.analyzer-card {
+    background: #06060a;
+    border: 2px solid #00f0ff;
+    padding: 40px;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 18px 90px 18px 20px; /* Generous right padding to make space for the button */
+    background: #020204;
+    border: 1px solid #00f0ff;
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    border-radius: 0px !important;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #ff0055;
+    color: #ff0055;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+}
+
+/* CRITICAL TERMINAL RESET FOR THE VISIBILITY BUTTON */
+.visibility-btn {
+    position: absolute !important;
+    right: 15px !important;
+    background: #06060a !important;
+    border: 1px solid #00f0ff !important;
+    color: #00f0ff !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+    border-radius: 0px !important;
+}
+
+.visibility-btn:hover {
+    background: #00f0ff !important;
+    color: #030305 !important;
+    box-shadow: 0 0 10px #00f0ff !important;
+}
+
+.action-btn-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.cta-btn {
+    background: transparent;
+    border: 1px solid #ff0055;
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    cursor: pointer;
+    border-radius: 0px !important;
+    transition: all 0.2s ease;
+}
+
+.cta-btn:hover {
+    background: #ff0055;
+    color: #030305;
+    text-shadow: none;
+    box-shadow: 0 0 20px #ff0055;
+}
+
+/* ==========================================================================
+   4. PERFORMANCE LOG GRID MATRIX
+   ========================================================================== */
+.results-panel {
+    margin-top: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    padding-bottom: 16px;
+}
+
+.results-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+}
+
+.status-badge {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   POSITION TO UPDATE: Locate .metric-card and paste this version
+   ========================================================================== */
+/* ==========================================================================
+   PRODUCTION OUTLINE SHIELD: FINALLY SNIPS THE HORIZONTAL BRIDGE LINE
+   ========================================================================== */
+.metric-card {
+    background: #07070c !important;
+    background-color: #07070c !important;
+    border: 1px solid rgba(0, 240, 255, 0.6) !important;
+    border-radius: 4px !important;
+    padding: 30px !important;
+    
+    /* CRITICAL ISOLATION MEASURES */
+    display: block !important;
+    box-sizing: border-box !important;
+    
+    /* Forces the browser to isolate this card's borders from its neighbors */
+    contain: paint !important; 
+    overflow: hidden !important;
+    
+    /* Injects a tiny horizontal gap buffer directly into the box math */
+    margin: 0 4px !important; 
+    
+    /* Premium glow effects remain intact */
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2), inset 0 0 8px rgba(0, 240, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dynamic corner decoration mark typifying tactical mainframes */
+/* ==========================================================================
+   POSITION TO UPDATE: Locate .metric-card::before and completely replace it
+   ========================================================================== */
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0;
+    
+    /* CRITICAL FIX: Explicitly lock the bracket size so it can never leak sideways */
+    width: 8px !important; 
+    height: 8px !important; 
+    
+    /* Only render the crisp top-left tactical corner stamp */
+    border-top: 2px solid #00f0ff !important;
+    border-left: 2px solid #00f0ff !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    
+    /* Ensure it doesn't extend an overlay layout trail */
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+/* Even cards switch over to an aggressive pink neon highlight loop on hover */
+.metric-card:hover {
+    transform: translateY(-2px);
+    border-color: #ff0055;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.4), inset 0 0 10px rgba(255, 0, 85, 0.1);
+}
+
+.card-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #a3b8cc;
+}
+
+.display-metric { font-size: 1.8rem; font-weight: 700; color: #ffffff; font-family: 'Orbitron', sans-serif; }
+.display-metric-sm { font-size: 1.4rem; font-weight: 700; color: #ffffff; font-family: 'Orbitron', sans-serif; }
+.display-metric-danger { font-size: 1.8rem; font-weight: 700; color: #ff0055; text-shadow: 0 0 8px #ff0055; font-family: 'Orbitron', sans-serif; }
+
+.sub-metric-text { font-size: 0.85rem; color: #a3b8cc; margin-top: 8px; }
+
+.progress-bar-container {
+    background: #151520;
+    height: 6px;
+    width: 100%;
+    margin-top: 14px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.text-output-card {
+    margin-bottom: 24px;
+}
+
+.pattern-list li {
+    font-size: 0.95rem;
+    color: #a3b8cc;
+    padding: 6px 0;
+    list-style: none;
+}
+
+/* ==========================================================================
+   5. SUGGESTION CONTROL CARD (FIXED COPY BUTTON)
+   ========================================================================== */
+.suggestion-card {
+    border: 1px dashed #ff0055;
+    background: #06060c;
+}
+
+.suggestion-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.suggestion-header h3 {
+    color: #ff0055;
+    text-shadow: 0 0 8px #ff0055;
+}
+
+.suggestion-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #020204;
+    padding: 16px 24px;
+    border: 1px solid #ff0055;
+}
+
+.secure-string {
+    color: #00ff66;
+    text-shadow: 0 0 8px #00ff66;
+    font-weight: 700;
+}
+
+/* CRITICAL TERMINAL RESET FOR THE COPY BUTTON */
+.copy-btn {
+    background: #06060a !important;
+    border: 1px solid #00ff66 !important;
+    color: #00ff66 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 0.85rem !important;
+    padding: 8px 16px !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+    border-radius: 0px !important;
+}
+
+.copy-btn:hover {
+    background: #00ff66 !important;
+    color: #030305 !important;
+    box-shadow: 0 0 10px #00ff66 !important;
+}
+
+/* Animations */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.reveal-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ==========================================================================
+   9. AUTOMATED TERMINAL BOOT-UP KEYFRAMES (STAGGERED LAUNCH)
+   ========================================================================== */
+
+/* The base animation blueprint handler */
+/* ==========================================================================
+   PRODUCTION RE-CALIBRATION: High-Speed Terminal Cascade
+   ========================================================================== */
+
+/* ==========================================================================
+   FORCE RESET VARIANT: TURBO PROGRESSION TIMELINE
+   ========================================================================== */
+
+.fade-in-card {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Super snappy animation cycle runtime */
+    animation: cyberLaunch 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tight 0.15s intervals to force a rapid-fire drop sequence */
+.turbo-1 { animation-delay: 0.05s; }
+.turbo-2 { animation-delay: 0.20s; }
+.turbo-3 { animation-delay: 0.35s; }
+.turbo-4 { animation-delay: 0.50s; }
+
+@keyframes cyberLaunch {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ==========================================================================
+   10. CINEMATIC TERMINAL LOADING MATRIX (2-SECOND STAGGER & SPLIT HEADLINE)
+   ========================================================================== */
+
+/* --- Card Launch Upgrades (2-Second Step Interval) --- */
+.fade-in-card {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: cyberLaunch 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2000ms sequential intervals between card deployments */
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 2.5s; }
+.delay-3 { animation-delay: 4.5s; }
+.delay-4 { animation-delay: 6.5s; }
+
+@keyframes cyberLaunch {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+        filter: brightness(0.2) drop-shadow(0 0 0 rgba(0,240,255,0));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: brightness(1);
+    }
+}
+
+/* --- Split Headline Slide Animation Matrix --- */
+.split-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.slide-left {
+    display: block;
+    opacity: 0;
+    transform: translateX(-150px); /* Starts far off to the left */
+    animation: slideFromLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.slide-right {
+    display: block;
+    opacity: 0;
+    transform: translateX(150px);  /* Starts far off to the right */
+    animation: slideFromRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;          /* Slight delay so they cross paths beautifully */
+}
+
+@keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(-150px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(150px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+/* ==========================================================================
+   11. DYNAMIC CRACK-TIME PHYSICS LOG MATRIX
+   ========================================================================== */
+
+/* Infinite sweep movement configuration for fortified credentials */
+@keyframes continuousLaserSweep {
+    0% { left: -30%; background-color: #00f0ff; box-shadow: 0 0 10px #00f0ff; }
+    50% { background-color: #00ff66; box-shadow: 0 0 15px #00ff66; }
+    100% { left: 100%; background-color: #00f0ff; box-shadow: 0 0 10px #00f0ff; }
+}
+
+/* Sudden violent warning strobe crash sequence for fragile strings */
+@keyframes gridSystemCollapse {
+    0% { width: 100%; background-color: #ffaa00; }
+    30% { width: 100%; background-color: #ff0055; filter: brightness(2); }
+    60% { width: 50%; background-color: #ff0055; opacity: 0.8; }
+    100% { width: 4%; background-color: #ff0055; box-shadow: 0 0 8px #ff0055; }
+}
+
+.laser-active-sweep {
+    animation: continuousLaserSweep 1.8s infinite linear !important;
+}
+
+.laser-active-collapse {
+    animation: gridSystemCollapse 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+/* ==========================================================================
+   12. CHRONOLOGICAL EXPANSION METRIC SYSTEM
+   ========================================================================== */
+.time-tick {
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* Activated visual states for current time epochs */
+.tick-active-cyan {
+    color: var(--neon-cyan) !important;
+    text-shadow: var(--glow-cyan);
+}
+
+.tick-active-pink {
+    color: var(--neon-pink) !important;
+    text-shadow: var(--glow-pink);
+}
+
+.tick-active-green {
+    color: var(--neon-green) !important;
+    text-shadow: var(--glow-green);
+}
+/* ==========================================================================
+   13. BREACH HAZARD ALARM & PULSE MECHANICS
+   ========================================================================== */
+
+/* Slow, deep, heavy background breathing glow - Never flashy or rapid */
+@keyframes breachPulseAlarm {
+    0% { border-color: rgba(255, 0, 85, 0.4); box-shadow: 0 0 10px rgba(255, 0, 85, 0.1), inset 0 0 5px rgba(255, 0, 85, 0.05); }
+    50% { border-color: rgba(255, 0, 85, 1); box-shadow: 0 0 20px rgba(255, 0, 85, 0.4), inset 0 0 12px rgba(255, 0, 85, 0.15); }
+    100% { border-color: rgba(255, 0, 85, 0.4); box-shadow: 0 0 10px rgba(255, 0, 85, 0.1), inset 0 0 5px rgba(255, 0, 85, 0.05); }
+}
+
+/* Linear scanning wire animation traveling across the layout block horizontally */
+@keyframes horizontalLaserSweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Activated hazard state classes driven by JavaScript controller bindings */
+.hazard-active-pulse {
+    animation: breachPulseAlarm 2.5s infinite ease-in-out !important;
+    background: #090306 !important; /* Slight deep crimson tint to the background shell */
+}
+
+.breach-scan-line {
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: horizontalLaserSweep 2.0s infinite linear;
+}
+
+/* ==========================================================================
+   14. REPAIRED RETRO BACK NAVIGATION TRIGGER (FORCED BLOCK MODE)
+   ========================================================================== */
+a.nav-back-btn {
+    display: inline-block !important;
+    padding: 10px 22px !important;
+    background-color: #020204 !important;
+    
+    /* Strict Rectangular Frame Boundaries */
+    border: 1px solid #ff0055 !important;
+    border-radius: 0px !important; 
+    
+    /* Typography Overrides */
+    color: #ff0055 !important;
+    text-decoration: none !important; 
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 0.85rem !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    
+    /* Text Shadow Emissive Base */
+    text-shadow: 0 0 6px rgba(255, 0, 85, 0.6) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* HIGH-VOLTAGE CRITICAL HOVER GLOW SYSTEM */
+a.nav-back-btn:hover {
+    background-color: #ff0055 !important;
+    color: #020204 !important;
+    text-shadow: none !important;
+    
+    /* Intense box radiation cloud to match the primary buttons */
+    box-shadow: 0 0 18px #ff0055 !important;
+    transform: translateY(-1px) !important;
+}
+/* ==========================================================================
+   16. ADVANCED TACTICAL GRID MATRIX BACKGROUND
+   ========================================================================== */
+canvas#cyberParticleCanvas {
+    /* Hardcoded lock to ensure it never leaks or scrolls away */
+    position: fixed !important;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -2 !important; /* Drops way below cards, texts, and buttons */
+    
+    /* THE DYNAMIC DIGITAL GRID: High-performance linear matrix textures */
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px; /* Size of individual digital cells */
+    background-position: center center;
+    
+    /* Low-frequency system breathing loop */
+    animation: gridPulseBreath 8s infinite ease-in-out;
+}
+
+@keyframes gridPulseBreath {
+    0% { filter: brightness(1) contrast(1); opacity: 0.8; }
+    50% { filter: brightness(1.4) contrast(1.1); opacity: 1; }
+    100% { filter: brightness(1) contrast(1); opacity: 0.8; }
+}
+/* ==========================================================================
+   CRITICAL OVERLAY CORRECTION: FORCES CANVAS VISIBILITY
+   ========================================================================== */
+
+/* ==========================================================================
+   THE NUCLEAR OPTION: FORCE ALL MAIN INTERFACE LAYERS TO TRANSPARENT
+   ========================================================================== */
+
+/* This strips background colors from EVERY main container layout on your page */
+html, body, main, div.container, .container, #wrapper, .main-content, section {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Re-apply our sharp digital grid and deep dark hue strictly to the canvas base */
+/* ==========================================================================
+   FIXED CANVA LAYOUT: REPAIRED LINEAR SYNTAX ERROR
+   ========================================================================== */
+canvas#cyberParticleCanvas {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -9999 !important; /* Drops to the absolute bottom layer */
+    display: block !important;
+    pointer-events: none !important;
+    
+    /* Hardcode the crisp dark backdrop color */
+    background-color: #030306 !important; 
+    
+    /* REPAIRED SYNTAX: Combined seamlessly using a single comma (no semicolon separating them) */
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px) !important;
+        
+    background-size: 50px 50px !important;
+    background-position: center center !important;
+}
+
+/* Ensure our interactive metric cards KEEP their solid dark background so text stays legible */
+.metric-card, .analyzer-card {
+    background: #07070c !important;
+    background-color: #07070c !important;
+}
